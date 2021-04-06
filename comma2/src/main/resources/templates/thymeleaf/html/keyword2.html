@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>키워드분석</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script th:src="@{/static/js/comma.js}"></script>
+<link
+	th:href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap}"
+	rel="stylesheet">
+<link rel="stylesheet" th:href="@{/static/css/keyword.css}">
+<link rel="stylesheet" th:href="@{/static/css/reset.css}">
+
+</head>
+<body>
+	<h3>키워드 입력</h3>
+	</br>
+
+	<div id="container">
+		<div class="main_container">
+			<input class="keyInput" type="text"
+				placeholder="분석할 키워드를 입력해보세요. 예) 청바지">
+			<button>
+				<img src="">
+			</button>
+		</div>
+
+
+
+
+		<div class="top_container">
+			<table class="classImg">
+				<tr>
+					<td><span><img th:src="@{static/images/logo.png}"></span></td>
+				</tr>
+			</table>
+			<table class="top_table">
+				<tr>
+					<td>
+						<button>
+							<span><img class="smallLogo"
+								th:src="@{static/images/logo.png}"></span>
+						</button>&nbsp;&nbsp;<strong><span>청바지</span></strong>
+					</td>
+				</tr>
+				<tr>
+					<td class="clickA"><a href="#"><span></span></a><a href="#"><span>네이버
+								쇼핑</span></a><a href="#"><span>쿠팡</span></a><a href="#"><span>1688</span></a><a
+						href="#"><span>Alilbaba</span></a><a href="#"><span>TaoBao</span></a></td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="page-num"
+			th:with="start=${(pages.number/maxPage)*maxPage + 1},
+                  end=(${(pages.totalPages == 0) ? 1 : (start + (maxPage - 1) < pages.totalPages ? start + (maxPage - 1) : pages.totalPages)})">
+			<ul>
+				<li th:if="${start > 1}"><a th:href="@{/list?(page=0)}"
+					th:text="'<<'"></a></li>
+				</li>
+
+				<li th:if="${start > 1}"><a
+					th:href="@{/list?(page=${start - maxPage})}" th:text="'<'"></a></li>
+
+
+				<li th:each="page: ${#numbers.sequence(start, end)}"><a
+					th:href="@{/list?(page=${page-1})}" th:text="${page}"></a></li>
+				</li>
+
+				<li th:if="${end < pages.totalPages}"><a
+					th:href="@{/list?(page=${start + maxPage})}" th:text="'>'"></a></li>
+
+				<li th:if="${end < pages.totalPages}"><a
+					th:href="@{/list?(page=${pages.totalPages-1})}" th:text="'>>'"></a></li>
+				</li>
+			</ul>
+
+		</div>
+
+	</div>
+
+</body>
+</html>
